@@ -8,6 +8,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 import joblib
+from pdf2image import convert_from_path
+from PIL import Image
+import pytesseract
 # from transformers import pipeline
 
 
@@ -72,6 +75,12 @@ def extract_text_from_attachment(file_path):
     elif file_path.endswith(".txt"):
         with open(file_path, "r", encoding="utf-8") as file:
             text = file.read()
+    elif file_path.endswith((".png", ".jpg", ".jpeg")):
+        # Perform OCR on image files
+        image = Image.open(file_path)
+        # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+        pytesseract.pytesseract.tesseract_cmd = r"/usr/local/Cellar/tesseract/5.5.0_1/bin/tesseract"
+        text = pytesseract.image_to_string(image)
     return text
 
 @app.get("/loadTrainData")
