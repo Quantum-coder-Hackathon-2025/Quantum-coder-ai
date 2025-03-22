@@ -1,0 +1,11 @@
+pandas
+fastapi
+uvicorn
+scikit-learn
+numpy
+pdfplumber
+python-docx
+python-multipart
+spacy
+joblib
+# python -m spacy download en_core_web_sm
