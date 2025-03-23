@@ -1,0 +1,19 @@
+
+Bank XYZ,
+
+I hope you're doing well. 
+
+We’d like to roll over **$25,000** without a physical cash transfer. Please provide confirmation once this is updated in your system.  We’d like to increase our existing loan commitment by **$50,000**. Could you confirm the new terms and updated interest rate for this amount?  
+
+Loan Account Details:
+
+Bank Name: XYZ BANK, NA
+
+ABA Number: 451000876
+
+Account No.: XXXXXXXXX890
+
+
+Thanks and regards, 
+Francis 
+Manager - ABC Commercial Pvt. Ltd.

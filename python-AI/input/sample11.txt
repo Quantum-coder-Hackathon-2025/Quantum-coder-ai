@@ -1,0 +1,17 @@
+Bank XYZ,
+
+We’ve scheduled a payment of **$10,000** due on **30th March 2025**. Can you confirm receipt once processed?
+
+Loan Account Details:
+
+Bank Name: XYZ BANK, NA
+
+ABA Number: 451000876
+
+Account No.: XXXXXXXXX890
+
+We’re planning a partial prepayment of **$5,000** soon. Could you confirm how this would impact the interest accrual?
+
+Thanks and regards, 
+Francis 
+Manager - ABC Commercial Pvt. Ltd.

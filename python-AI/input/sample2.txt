@@ -1,0 +1,47 @@
+BANK OF AMERICA
+
+Bank of America N.A
+
+To: ABC BANK NATIONAL ASSOCIATION
+
+Date: 08-Nov-2023
+
+ATTN:	AGENT DEFAULT
+Phone:	999-999-9999
+Fax:	800-606-7893
+Email:	FTIUY@abcbank.com
+
+Re:		RANTOR FITZGERALD LP USD 425MM MAR22 / REVOLVER / RANTOR FIT00044
+
+Deal CUSIP: 	13465EAEO
+Deal ISIN:	US13465EAEO6
+Facility CUSIP:	13465EAF7
+Facility ISIN:	US13465EAF79
+Lender MEI: US1L098433
+
+Effective 10-Nov-2023, RANTOR FITZGERALD LP has elected to repay under the SOFR (US) Term option, a total of USD 20,000,000.00.
+
+Previous Global principal balance: USD 45,000,000.00
+New Global principal balance: USD 25,000,000.00
+
+This load was effective 20-Jul-2023 and is scheduled to reprice on 20-Nov-2023.
+
+Your share of the USD 20,000,000.00 SOFR (US) Term option payment is USD 1,411,764.71.
+Previous Lender Share Principal Balance: USD 3,176,470.59
+New Lender Share Principal Balance: USD 1,764,705.88
+
+We will remit USD 1,411,764.71 on the effective date. Please note that (i) if the Borrower has not in fact made such payment; or (ii) any payment you receive is in excess of what
+was paid by the Borrower or (iii) we notify you that the payment was erroneously made, then pursuant to the provisions of the credit facility, you agree to return such payment.
+
+For: ABC BANK NATIONAL ASSOCIATION
+TO: ABC BANK, NA
+ABA Number: 451000876
+Account No: XXXXXXXXX890
+Reference : RANTOR FITZGERALD LP USD 425MM MAR22 , SOFR (US) Term Principal Payment (RANTOR FIT00044)
+
+Thanks & Regards,
+
+KUDORA CRESNETTE
+Telephone #: +19398561200
+Email id : kudora.cresnette@bofa.com
+	

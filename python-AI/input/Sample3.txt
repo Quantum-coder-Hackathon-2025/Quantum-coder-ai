@@ -1,0 +1,40 @@
+XYZ Bank N.A.  
+Loan Agency Services  
+Date: 15-MAR-2025  
+TO: ABC BANK, NATIONAL ASSOCIATION  
+ATTN: SENTHAMARAI SELVI  
+FAX: 123-456-786  
+Re: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024, TERM LOAN B  
+
+Description: Interest Rate Adjustment Request  
+
+BORROWER: GLOBAL INDUSTRIAL CORP  
+DEAL NAME: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024  
+
+Effective 15-MAR-2025, the Borrower has requested an adjustment to the interest rate applied to facility TERM LOAN B. The rate will be adjusted as follows:  
+- Previous Rate: SOFR (US) + 2.5%  
+- New Rate: SOFR (US) + 2.2%  
+
+The adjustment will be reflected starting from the next billing cycle.  
+
+For: ABC Bank, NA  
+
+Reference: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024, Interest Rate Adjustment  
+
+If you have any questions, please call the undersigned.  
+
+COMMENT  
+THIS IS A NOTICE OF CHANGE IN INTEREST TERMS EFFECTIVE FROM 15-MAR-2025.  
+
+Bank Name: XYZ Bank NA  
+ABA #: 654321987  
+Account #: 0098765432  
+Account Name: GLOBAL INDUSTRIAL ESCROW ACCOUNT  
+Ref: GLOBAL INDUSTRIAL CORP  
+
+*  
+
+Regards,  
+
+ROBERTS SCOTT  
+Telephone #: +1 (987) 654-3
