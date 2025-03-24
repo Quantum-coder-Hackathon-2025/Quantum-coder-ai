@@ -124,24 +124,43 @@ async def classify_request(email_text: str = Form(...), attachment: UploadFile =
     vectorizer = joblib.load("vectorizer_xgb.pkl")
 
     input_vec = vectorizer.transform([combined_text])
-    category_index = classifier.predict(input_vec)[0]
-    category = list(categories.keys())[category_index]
+    # Get probabilities for all categories
+    probabilities = classifier.predict_proba(input_vec)[0]
+    
+    # Process category and subcategory predictions
+    all_results = []
+    
+    for category, prob in zip(categories.keys(), probabilities):
+        subcategories = categories[category]
+        subcategory_confidences = []
 
-    # Subcategory Prediction (Basic Match)
-    subcategories = categories[category]
-    subcategory = next((sub for sub in subcategories if sub.lower() in combined_text.lower()), "Unknown")
+        # Assign confidence score to subcategories based on text presence
+        for sub in subcategories:
+            if sub.lower() in combined_text.lower():
+                sub_confidence = min(round(prob * 100 + 10, 2), 99.99)  # Boost confidence if found in text
+            else:
+                sub_confidence = round(prob * 100, 2)
+
+            subcategory_confidences.append({"Subcategory": sub, "Confidence_Score": sub_confidence})
+
+        # Sort subcategories by confidence
+        subcategory_confidences = sorted(subcategory_confidences, key=lambda x: x["Confidence_Score"], reverse=True)
+
+        all_results.append({
+            "Category": category,
+            "Category_Confidence": round(prob * 100, 2),
+            "Subcategories": subcategory_confidences
+        })
+
+    # Sort categories by confidence
+    all_results = sorted(all_results, key=lambda x: x["Category_Confidence"], reverse=True)
 
     # Extract additional details
     extracted_details = extract_details(combined_text)
 
-    # Confidence Score (Placeholder for real probability scores)
-    confidence_score = round(np.random.uniform(60, 95), 2)
-
     # Final Output
     response = {
-        "Category": category,
-        "Subcategory": subcategory,
-        "Confidence_Score": confidence_score,
+        "All_Results": all_results,
         "Extracted_Details": extracted_details,
         "Summary": combined_text[:500]  # First 500 chars of the text
     }

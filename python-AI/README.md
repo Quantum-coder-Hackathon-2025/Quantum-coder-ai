@@ -20,7 +20,7 @@ Activate the virtual environment:
     windows -> venv\Scripts\activate
     mac -> source venv/bin/activate
 4. install all library
-    pip insall -requirements.txt
+    pip install -requirements.txt
     or do one by one installation
     pip install 
         pandas

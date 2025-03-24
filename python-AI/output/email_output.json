@@ -1,0 +1,12 @@
+{
+    "from": "your_email@example.com",
+    "to": "recipient@example.com",
+    "subject": "Facility Lender Share Adjustment Notification",
+    "body": "Dear Recipient,\n\nPlease find attached the latest facility lender share adjustment details.\n\nBest regards,  \nROBERTS SCOTT  \nXYZ Bank N.A.",
+    "attachments": [
+        {
+            "filename": "NOC.png",
+            "content": "BAJAJ\nFINSERV\n\nBajaj Finance Limited\n\n4th Floor Survey # 208/1-B\nViman Nagar,Pune-\n411014, India\n\nNo Objection Certificate\n\nDATE: 12/11/2016\n\nLOAN ACCOUNT NO: 421SCE18459866\n\nCUSTOMER NAME: SELVARAJU A\n\nThisis to certify that BAJAJ FINANCE LTD., has received complete payment for the LIFE STYLE FINANCE facility\navailed by the customer under the Loan Agreement No.: 421SCE18459866 dated 23/12/2015 and there is no further\namount outstanding and payable by the customer to Bajaj Finance Ltd. under the aforesaid loan.\n\nFor and on behalf of BAJAJ FINANCE LTD.\n\nThis is system generated letter and does not require any signature."
+        }
+    ]
+}
