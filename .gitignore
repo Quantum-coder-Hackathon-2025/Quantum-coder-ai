@@ -56,3 +56,4 @@ poetry.lock
 .coverage
 .coverage.*
 *.coveragerc
+.history
