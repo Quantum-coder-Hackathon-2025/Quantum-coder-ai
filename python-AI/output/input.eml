@@ -1,0 +1,131 @@
+Delivered-To: quantom.coders.ftu@gmail.com
+Received: by 2002:a05:6a20:12cc:b0:1f5:9c93:4ca with SMTP id v12csp1680349pzg;
+        Sun, 23 Mar 2025 20:35:32 -0700 (PDT)
+X-Received: by 2002:a05:622a:1144:b0:476:79d2:af57 with SMTP id d75a77b69052e-4771dd93da7mr166671691cf.22.1742787332287;
+        Sun, 23 Mar 2025 20:35:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1742787332; cv=none;
+        d=google.com; s=arc-20240605;
+        b=QfapExZ34YXOERCPp7PIr8+BFnkMZphM5LgLkKfVk1pZOqsBILbJhM4PLwoO2ZM8od
+         f+NXtJDeZlxP56glPYqO5ql4syu2YK3FsPBqgv3/aBV55T6YTQK+A4o7rADC087cCD3A
+         hKzL6faj3McsxB0kmc3yCKs4JdkfPp4EHDE0PqmVUlaCZ6YOAXmsUU526m8JT4wBsVYc
+         /5W/x6kGLeCEP7FxkVE9+5u3Bd/bgtcBRgSER4E2GEi/IVEUiERMFRLmsVkyXVNtnQmR
+         1TtYuU0EwjBVu34sfe7FkEBNbU1oh0nUsjHg/fKtPkiO6tIZVYUuLD11yzJVlbRFYYkE
+         ahIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=egEY2SfYDJdWMDGat/ogTz/Akc1KHbrnEQ3SvNoM+ic=;
+        fh=4BqmUibg7apx1ZmVe0Kx8E6T0oZvYOwSNXQEIEJZO1c=;
+        b=eaeEmAc3OS9PdowPu4Pp3VzlDgsbFY5mhbwRlwa1cuFz2gWQ4GaA6PNWXWjGF8a4yr
+         e8SI1cSZG3dHDCIVH08ZDljEJL2NCzpeFc3ZhCcZmSDXFBiAsvkq8n6ZZqG2IKGBjLWk
+         qs+CedcsiSKccTN9+WzOuD1+PgPlal2p+hbvA2eHjPFcQ6wtybDPmAYGFvBgX1XcCtbD
+         e/rYjH1lf5VViBMfkXzKuzG4oi6G7U6jUzWCRWEKxRIBAhCUMkIECaE5+1FLk78Jc3VJ
+         5LuUlAGhnZ2RIq7nYsb4pg72UGtNrh7RKqOOpQ4G3o64FwBhjcgTIYfhxFy6jH/1GByz
+         GVaQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=iY56Xax6;
+       spf=pass (google.com: domain of paloorazeez@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=paloorazeez@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@gmail.com
+Return-Path: <paloorazeez@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id d75a77b69052e-4771d1bc260sor67580121cf.4.2025.03.23.20.35.32
+        for <quantom.coders.ftu@gmail.com>
+        (Google Transport Security);
+        Sun, 23 Mar 2025 20:35:32 -0700 (PDT)
+Received-SPF: pass (google.com: domain of paloorazeez@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=iY56Xax6;
+       spf=pass (google.com: domain of paloorazeez@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=paloorazeez@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@gmail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1742787332; x=1743392132; dara=google.com;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=egEY2SfYDJdWMDGat/ogTz/Akc1KHbrnEQ3SvNoM+ic=;
+        b=iY56Xax62uCNZ1IPZJuxHd/p9TwvC+gR4pWh5cNcuUvzw/SBFPRFoobit81PvaLbRo
+         VKcKjkRBd0pb8hdUeNvSZwjgDzV/7VcwQ7797UmC0+kwDQEKWRGy9qQ5veZqPvLDlpSO
+         9P/kFd/J35RsAwBDKS24SBmc2IgHoEXeb/b2qIgijC+V7SLo9ntfolaV5WvO/q0EKd2Z
+         wIu+OXe6xV02Mul7FUdbxXnsAy0bwlrtV7yot3U+9lHbizmbskVemLdlq4X7IQJe5nFZ
+         pqeFmpD85u7UYnswHn4IFtBF9kkG2GJtGv632crvrQzPsFI7TI4rlPPd+V7g044LCeLQ
+         3zmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742787332; x=1743392132;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=egEY2SfYDJdWMDGat/ogTz/Akc1KHbrnEQ3SvNoM+ic=;
+        b=QesEwj72rJWBOD5tKhyfzT5dGqYdCQzm+7hrc3jFwpGW2q9fDFJPX79aZvH+0ZGgrB
+         lyTvj/+p0Mc5qYKa2wApGDaRqKa19mPQ4QpJhTBnMCRV2IDpwcf8w8JKyOTMWDwMWn/w
+         GTvKtwlfxtJwgGwP8W6G/im99OtAcdXNpIvWhdiWL+0+x6aSA9iZIP7IQ+Mg9DrSVr14
+         s+CjLQRk3KDOtAmfIFJoPk6VOv1eIL/6N9qlOiPbhPX7AC7/GIPsxWJ0jeePCIVHOXlY
+         ojHLRvagWJU68toIgHGv5M7F0mi/cQI4yj87DAngHN9XKP4XVRS90/HFBj1GrTWfUg5x
+         aBXA==
+X-Gm-Message-State: AOJu0YyJaOnTqH5yNPHRw63DtMl8N9wZOxbfvU9ed8wuFN1U0PXmE+9I
+	UDQNnvaZCeuD+FBlPkL8MJ61g3Pg6GWF8vCNWgfgDqNC5SZPO1XWSHEA9aaIQYYSAW8pvOfJW97
+	7hh7KL9OjWmfCyOSoVlWtjGGwK4S79MfY
+X-Gm-Gg: ASbGncvr4FJEefU5UKHhG9WDteWhfGBL21295SOzwJnSh2BB0fM1TyPGN3XnWfbAzww
+	aNQL8csqCNvpjYz3vug1CtL3zHOFbmWMy/QdIokkG5ZNKWiPcpY4MNa527bYVus9lomiqNJGrty
+	OjwZKc6Ur1IKUT8nCcOkSyc9RrDokTkufo2gBKsSBKD6n6I9y6Sz9I9ss=
+X-Google-Smtp-Source: AGHT+IE5xaJAdfrX/T2o/fM3MGj7WKDY0PVvLE21JjaF4Q/IE0wjEvfNWBaGeqRfxqZN94yYUwbAI5yG+wBaz5mHfLE=
+X-Received: by 2002:a05:622a:1f07:b0:476:c656:4e80 with SMTP id
+ d75a77b69052e-4771de32c45mr192945021cf.34.1742787331600; Sun, 23 Mar 2025
+ 20:35:31 -0700 (PDT)
+MIME-Version: 1.0
+From: azeez paloor <paloorazeez@gmail.com>
+Date: Mon, 24 Mar 2025 09:04:54 +0530
+X-Gm-Features: AQ5f1Joy-QTMOfB6bqe2rAaN6JcIkjEod_bSVStQJNPJjEYR5rtQmrjwhFZzYTs
+Message-ID: <CADJbSq=nUTeQowkKLiTXOpydMuTcof=pseLR7ajSizpuU90gRQ@mail.gmail.com>
+Subject: Loan service request
+To: quantom.coders.ftu@gmail.com
+Content-Type: multipart/mixed; boundary="000000000000d1d2fa06310e4b7c"
+
+--000000000000d1d2fa06310e4b7c
+Content-Type: multipart/alternative; boundary="000000000000d1d2f906310e4b7a"
+
+--000000000000d1d2f906310e4b7a
+Content-Type: text/plain; charset="UTF-8"
+
+Loan service request
+Deal no #987897sdghh
+
+
+*Thanks & Regards*
+*Azeez Paloor*
+*+919620897195*
+
+--000000000000d1d2f906310e4b7a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Loan service request</div><div>Deal no #987897sdghh</=
+div><div><br></div><div><br></div><div><div dir=3D"ltr" class=3D"gmail_sign=
+ature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><b><font color=
+=3D"#073763" face=3D"courier new, monospace"><i>Thanks &amp; Regards</i></f=
+ont></b><div><b><font color=3D"#073763" face=3D"courier new, monospace"><i>=
+Azeez Paloor</i></font></b></div><div><b><font color=3D"#073763" face=3D"co=
+urier new, monospace"><i>+919620897195</i></font></b></div></div></div></di=
+v></div>
+
+--000000000000d1d2f906310e4b7a--
+--000000000000d1d2fa06310e4b7c
+Content-Type: text/plain; charset="UTF-8"; name="sample8.txt"
+Content-Disposition: attachment; filename="sample8.txt"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m8miju4f0>
+X-Attachment-Id: f_m8miju4f0
+
+DQoNCkJhbmsgWFlaLA0KDQpJIGhvcGUgeW91J3JlIGRvaW5nIHdlbGwuIA0KDQpDb3VsZCB5b3Ug
+Y29uZmlybSB0aGUgdXBjb21pbmcgcmVwcmljaW5nIG9uIDIwdGggTm92ZW1iZXIgMjAyNSwgYW5k
+IHNoYXJlIHRoZSBuZXcgU09GUiAoVVMpIFRlcm0gcmF0ZSB0aGF0IHdpbGwgYXBwbHk/DQoNCldl
+4oCZZCBsaWtlIHRvIGRpc2N1c3MgdGhlIHBvc3NpYmlsaXR5IG9mIHJlcHJpY2luZyB0aGUgaW50
+ZXJlc3QgcmF0ZSBmb3IgdGhlIHJlbWFpbmluZyBwcmluY2lwYWwgYmFsYW5jZSBvZiAkMSw3NjQs
+NzA1Ljg4LiBBcmUgdGhlcmUgb3B0aW9ucyBhdmFpbGFibGUgdG8gYWRqdXN0IHRvIGEgbW9yZSBm
+YXZvcmFibGUgcmF0ZSBiYXNlZCBvbiBjdXJyZW50IG1hcmtldCBjb25kaXRpb25zPw0KDQpMb2Fu
+IEFjY291bnQgRGV0YWlsczoNCg0KQmFuayBOYW1lOiBYWVogQkFOSywgTkENCg0KQUJBIE51bWJl
+cjogNDUxMDAwODc2DQoNCkFjY291bnQgTm8uOiBYWFhYWFhYWFg4OTANCg0KUGxlYXNlIHNoYXJl
+IGEgYnJlYWtkb3duIG9mIGFueSBmZWVzIGFzc29jaWF0ZWQgd2l0aCByZXByaWNpbmcgYWRqdXN0
+bWVudHMgYW5kIGxldCB1cyBrbm93IGlmIGJvcnJvd2VyIGF1dGhvcml6YXRpb24gaXMgcmVxdWly
+ZWQgZm9yIHRoaXMgY2hhbmdlLg0KDQpUaGFua3MgYW5kIHJlZ2FyZHMsIA0KRnJhbmNpcyANCk1h
+bmFnZXIgLSBBQkMgQ29tbWVyY2lhbCBQdnQuIEx0ZC4=
+--000000000000d1d2fa06310e4b7c--

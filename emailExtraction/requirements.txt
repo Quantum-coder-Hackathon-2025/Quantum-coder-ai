@@ -1,0 +1,9 @@
+pdf2image
+pytesseract
+PyPDF2
+pdfplumber
+python-docx
+# python -m venv venv
+# source venv/bin/activate
+# python -m spacy download en_core_web_sm
+# huggingface-cli download facebook/bart-large-cnn
