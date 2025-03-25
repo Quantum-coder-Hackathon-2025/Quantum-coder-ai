@@ -93,6 +93,8 @@ def extract_email(folder_name):
             print(f"Message ID: {msg_id}")
             eml_file_path, raw_message = save_email_as_eml(service, msg_id, eml_folder)
             print(f"Email saved as {eml_file_path}")
+
+
             #upload email file to google drive
             upload_to_gdrive(msg_id, eml_file_path)
              # Parse the email content
@@ -111,7 +113,6 @@ def extract_email(folder_name):
             upload_to_gdrive(msg_id, body_file_path)
 
             # Save attachments
-            
             for filename, content in attachments:
                 attachment_path = os.path.join(attachments_folder, filename)
                 with open(attachment_path, 'wb') as f:
