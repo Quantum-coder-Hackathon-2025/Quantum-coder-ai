@@ -10,6 +10,9 @@ from docx import Document
 from PIL import Image
 import pytesseract
 from dotenv import load_dotenv
+import uvicorn
+
+
 
 # Load environment variables
 load_dotenv()
@@ -146,8 +149,10 @@ async def reset_system(file: UploadFile = File(...)):
 
         # Generate output JSON filename
         base_filename = os.path.splitext(file.filename)[0]  # Extracts filename without extension
+        print(base_filename);
         json_output_path = os.path.join(INPUT_JSON, f"{base_filename}.json")
-        
+        print(json_output_path);
+
         # Save JSON output
         with open(json_output_path, "w", encoding="utf-8") as json_file:
             json.dump(email_json, json_file, indent=4)
@@ -184,8 +189,7 @@ async def reset_system():
 
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
 
 # Run the FastAPI app with:
 # uvicorn filename:app --host 0.0.0.0 --port 8000 --reload

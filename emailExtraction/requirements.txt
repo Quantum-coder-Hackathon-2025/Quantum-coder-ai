@@ -3,7 +3,12 @@ pytesseract
 PyPDF2
 pdfplumber
 python-docx
+uvicorn
+fastapi
+dotenv
+python-multipart
 # python -m venv venv
 # source venv/bin/activate
 # python -m spacy download en_core_web_sm
 # huggingface-cli download facebook/bart-large-cnn
+# pip install --upgrade pip

@@ -4,21 +4,18 @@ import pdfplumber
 import docx
 import spacy
 import numpy as np
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form
-from pydantic import BaseModel
+from fastapi import FastAPI, UploadFile, File, Form
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 import joblib
+from pdf2image import convert_from_path
 from PIL import Image
 import pytesseract
 from sklearn.metrics.pairwise import cosine_similarity
 import re
 from dateutil import parser
-from dotenv import load_dotenv
 
-# Load .env file
-load_dotenv()
 
 # from transformers import pipeline
 
@@ -70,17 +67,6 @@ def load_Training():
 # Initialize FastAPI App
 app = FastAPI()
 
-class Attachment(BaseModel):
-    filename: str
-    content: str
-
-class EmailRequest(BaseModel):
-    from_email: str
-    to: str
-    subject: str
-    body: str
-    attachments: list[Attachment]
-
 # Extract text from attachments
 def extract_text_from_attachment(file_path):
     text = ""
@@ -98,11 +84,11 @@ def extract_text_from_attachment(file_path):
         # Perform OCR on image files
         image = Image.open(file_path)
         # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-        pytesseract.pytesseract.tesseract_cmd = os.getenv("TESSER_ACT")
+        pytesseract.pytesseract.tesseract_cmd = r"/usr/local/Cellar/tesseract/5.5.0_1/bin/tesseract"
         text = pytesseract.image_to_string(image)
     return text
 
-@app.get("/loadTrainingData")
+@app.get("/loadTrainData")
 def load_training_api():
     load_Training()
     return {"message loaded training data"}
@@ -182,132 +168,82 @@ def clean_text(text):
     # Remove extra spaces
     return re.sub(r"\s+", " ", text).strip()
 
+# Classify Request
+# def clssifyText(text):
 
-# Classify text using trained model
-def classify_text(text):
+
+# API Endpoint to Process Emails
+@app.post("/classify/")
+async def classify_request(email_text: str = Form(...), attachment: UploadFile = File(None)):
+    attachment_text = ""
+
+    # Save and extract text from the attachment
+    if attachment:
+        file_path = f"temp_{attachment.filename}"
+        with open(file_path, "wb") as buffer:
+            buffer.write(await attachment.read())
+
+        attachment_text = extract_text_from_attachment(file_path)
+        os.remove(file_path)  # Delete after processing
+
+    # Combine email and attachment text
+    combined_text = email_text + "\n" + attachment_text
+
     # Transform text for classification
     # Load saved classifier and vectorizer
     classifier = joblib.load("loan_request_model.pkl")
     vectorizer = joblib.load("vectorizer.pkl")
 
-    input_vec = vectorizer.transform([text])
+    input_vec = vectorizer.transform([combined_text])
+
+    # Get probabilities for all categories
     probabilities = classifier.predict_proba(input_vec)[0]
     
-    unique_results = {}
+    # Process category and subcategory predictions
+    unique_results = {}  # Dictionary to store unique category-subcategory pairs
+    
     for category, prob in zip(categories.keys(), probabilities):
-        category_confidence = round(prob * 1, 2)
+        category_confidence = round(prob * 100, 2)
         if category_confidence <= 0:
-            continue
+            continue  # Skip categories with 0 confidence
 
         subcategories = categories[category]
         sub_vecs = vectorizer.transform(subcategories)
-        text_similarities = cosine_similarity(input_vec, sub_vecs)[0]
+        text_similarities = cosine_similarity(input_vec, sub_vecs)[0]  # Compute similarity
 
+        # Get the best subcategory
         best_subcategory, best_sub_confidence = None, 0
         for sub, sim in zip(subcategories, text_similarities):
-            sub_confidence = round(sim * 1, 2)
-            if sub_confidence > best_sub_confidence:
+            sub_confidence = round(sim * 100, 2)
+            if sub_confidence > best_sub_confidence:  # Keep only the highest scoring subcategory
                 best_subcategory, best_sub_confidence = sub, sub_confidence
 
-        if best_subcategory and best_sub_confidence > 0:
+        if best_subcategory and best_sub_confidence > 0:  # Ensure a valid subcategory exists
+            # Store only unique (category, subcategory) pairs
             key = (category, best_subcategory)
-            if key not in unique_results or unique_results[key]["confidence_score"] < best_sub_confidence:
+            if key not in unique_results or unique_results[key]["Subcategory_Confidence"] < best_sub_confidence:
                 unique_results[key] = {
                     "Category": category,
-                    # "Confide": category_confidence,
+                    "Category_Confidence": category_confidence,
                     "Subcategory": best_subcategory,
-                    "confidence_score": best_sub_confidence
+                    "Subcategory_Confidence": best_sub_confidence
                 }
 
-    sorted_results = sorted(unique_results.values(), key=lambda x: x["confidence_score"], reverse=True)
-    return sorted_results[:2] if sorted_results else []  # Only return top 3
+    # Convert dictionary values to list and sort by subcategory confidence
+    all_results = sorted(unique_results.values(), key=lambda x: x["Subcategory_Confidence"], reverse=True)
 
+    # Extract additional details
+    extracted_details = extract_details(combined_text)
 
-# FastAPI endpoint to process emails and multiple attachments
-@app.post("/process_email/attachemnts")
-async def process_email(email_text: str = Form(...), attachments: list[UploadFile] = File(None)):
-    results = []    
-    #Process email body
-    email_classification = classify_text(email_text)
-    if email_classification:  # Only add if classification exists
-        results.append({
-            "Summary": clean_text(generate_summary(email_text)),
-            "Classification": email_classification,
-            "Extracted_Details": extract_details(email_text)
-        })
-    else:
-        email_text = ""
+    # Generate Summary
+    summary = generate_summary(combined_text)
+    summary = clean_text(summary)
 
-    # Process Attachments
-    if attachments:
-        for attachment in attachments:
-            file_path = f"temp_{attachment.filename}"
-            with open(file_path, "wb") as buffer:
-                buffer.write(await attachment.read())
+    # Final Output
+    response = {
+        "All_Results": all_results,
+        "Extracted_Details": extracted_details,
+        "Summary": summary  # First 500 chars of the text
+    }
 
-            text_content = email_text + "\n" + extract_text_from_attachment(file_path)
-            os.remove(file_path)  # Delete after processing
-            
-            if not text_content.strip():
-                results.append({
-                    "Source": "Not available",
-                    "Message": "Not valid content"
-                })
-                continue
-            
-            attachment_classification = classify_text(text_content)
-            if attachment_classification:  # Only add if classification exists
-                results.append({
-                    "Summary": clean_text(generate_summary(text_content)),
-                    "Classification": attachment_classification,
-                    "Extracted_Details": extract_details(text_content)
-                })
-    # If no classifications exist, return an empty response
-    return {"Results": results} if results else {"Results": []}
-
-@app.post("/process_email/generatedInput")
-async def process_email(email_request: EmailRequest):
-    results = []    
-    email_text = email_request.body
-        #Process email body
-    email_classification = classify_text(email_text)
-    if email_classification:  # Only add if classification exists
-        results.append({
-            "Summary": clean_text(generate_summary(email_text)),
-            "Classification": email_classification,
-            "Extracted_Details": extract_details(email_text)
-        })
-    else:
-        email_text = ""
-
-    # Process Attachments
-    if email_request.attachments:
-        for attachment in email_request.attachments:
-            # file_path = f"temp_{attachment.filename}"
-            # with open(file_path, "wb") as buffer:
-            #     buffer.write(await attachment.read())
-
-            text_content = email_text + "\n" + attachment.content
-            # os.remove(file_path)  # Delete after processing
-            
-            if not text_content.strip():
-                results.append({
-                    "Source": "Not available",
-                    "Message": "Not valid content"
-                })
-                continue
-            
-            attachment_classification = classify_text(text_content)
-            if attachment_classification:  # Only add if classification exists
-                results.append({
-                    "Summary": clean_text(generate_summary(text_content)),
-                    "Classification": attachment_classification,
-                    "Extracted_Details": extract_details(text_content)
-                })
-
-    # If no classifications exist, return an empty response
-    return {"Results": results} if results else {"Results": []}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
+    return response

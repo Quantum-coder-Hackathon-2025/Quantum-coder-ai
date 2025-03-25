@@ -1,0 +1,23 @@
+pandas
+fastapi
+uvicorn
+scikit-learn
+numpy
+pdfplumber
+python-docx
+python-multipart
+spacy
+joblib
+torch
+transformers
+openpyxl
+tensorflow
+accelerate
+xgboost
+pdf2image
+pytesseract
+PyPDF2
+# python -m venv venv
+# source venv/bin/activate
+# python -m spacy download en_core_web_sm
+# huggingface-cli download facebook/bart-large-cnn

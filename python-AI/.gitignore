@@ -56,5 +56,3 @@ poetry.lock
 .coverage
 .coverage.*
 *.coveragerc
-.history
-token.json

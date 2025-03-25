@@ -76,9 +76,9 @@ def extract_email(folder_name):
     service = build('gmail', 'v1', credentials=creds)
 
     # Create a folder to save the attachments
-    attachments_folder = folder_name+"\\attachments"
-    os.makedirs(attachments_folder, exist_ok=True)
-    eml_folder = folder_name+"\\eml"
+    # attachments_folder = folder_name+"\\attachments"
+    # os.makedirs(attachments_folder, exist_ok=True)
+    eml_folder = folder_name
     os.makedirs(eml_folder, exist_ok=True)
     # Fetch the list of messages
     results = service.users().messages().list(userId='me', q='is:unread').execute()
@@ -96,7 +96,7 @@ def extract_email(folder_name):
 
 
             #upload email file to google drive
-            upload_to_gdrive(msg_id, eml_file_path)
+            # upload_to_gdrive(msg_id, eml_file_path)
              # Parse the email content
             msg_bytes = base64.urlsafe_b64decode(raw_message)
             msg = BytesParser(policy=policy.default).parsebytes(msg_bytes)
@@ -106,19 +106,19 @@ def extract_email(folder_name):
             print(f"Email body: {body}")
 
              # Save the email body to a text file
-            body_file_path = os.path.join(attachments_folder, f"{msg_id}.txt")
-            with open(body_file_path, 'w', encoding='utf-8') as body_file:
-                body_file.write(body)
-            print(f"Email body saved as {body_file_path}")
-            upload_to_gdrive(msg_id, body_file_path)
+            # body_file_path = os.path.join(attachments_folder, f"{msg_id}.txt")
+            # with open(body_file_path, 'w', encoding='utf-8') as body_file:
+            #     body_file.write(body)
+            # print(f"Email body saved as {body_file_path}")
+            # upload_to_gdrive(msg_id, body_file_path)
 
             # Save attachments
-            for filename, content in attachments:
-                attachment_path = os.path.join(attachments_folder, filename)
-                with open(attachment_path, 'wb') as f:
-                    f.write(content)
-                print(f"Attachment saved as {attachment_path}")
-                upload_to_gdrive(msg_id, attachment_path)
+            # for filename, content in attachments:
+            #     attachment_path = os.path.join(attachments_folder, filename)
+            #     with open(attachment_path, 'wb') as f:
+            #         f.write(content)
+            #     print(f"Attachment saved as {attachment_path}")
+            #     upload_to_gdrive(msg_id, attachment_path)
 
              # Mark the email as read
             service.users().messages().modify(userId='me', id=message['id'], body={'removeLabelIds': ['UNREAD']}).execute()
