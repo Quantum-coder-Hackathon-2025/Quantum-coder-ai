@@ -2,9 +2,9 @@ From: your_email@example.com
 To: recipient@example.com
 Subject: Facility Lender Share Adjustment Notification
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1503612194619029926=="
+Content-Type: multipart/mixed; boundary="===============6114588112411926723=="
 
---===============1503612194619029926==
+--===============6114588112411926723==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
@@ -16,7 +16,7 @@ Best regards,
 ROBERTS SCOTT  
 XYZ Bank N.A.  
 
---===============1503612194619029926==
+--===============6114588112411926723==
 Content-Type: text/plain
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="sample1.txt"
@@ -44,4 +44,4 @@ Cg0KUk9CRVJUUyBTQ09UVA0KVGVsZXBob25lICM6DQpGYXggIzoNCg0KWFlaIENvbW1lcmNpYWwg
 QmFua2luZyBpcyBhIGJyYW5kIG5hbWUgb2YgWFlYIEJhbmssIE4uQS4gTWVtYmVyIEZESUMNCg0K
 DQoNCg0KDQpNYXJjaCAwMSwgMjAyNSAtIDA5OjM5OjE1IEFNDQoNCg0KDQoNCg0K
 
---===============1503612194619029926==--
+--===============6114588112411926723==--

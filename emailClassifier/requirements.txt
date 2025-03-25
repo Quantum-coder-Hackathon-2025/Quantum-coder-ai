@@ -17,6 +17,7 @@ xgboost
 pdf2image
 pytesseract
 PyPDF2
+python-dotenv
 # python -m venv venv
 # source venv/bin/activate
 # python -m spacy download en_core_web_sm

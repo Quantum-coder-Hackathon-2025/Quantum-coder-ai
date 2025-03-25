@@ -20,6 +20,15 @@ def job():
     extract_email(folder_name)
     logging.info("Email extraction completed.")
 
+    #setp2 emial extraction API Call
+
+    #step3 call classifier API Call
+
+    #step4 call duplicate check API Call
+
+    #step5 generate output in output folder API Call
+
+
 # Schedule the job every 1 minute
 schedule.every(1).minute.do(job)
 logging.info("Scheduler started. Running job every 1 minute.")

@@ -1,0 +1,12 @@
+{
+    "from_email": "your_email@example.com",
+    "to": "recipient@example.com",
+    "subject": "Facility Lender Share Adjustment Notification",
+    "body": "Dear Recipient,\n\nPlease find attached the latest facility lender share adjustment details.\n\nBest regards,  \nROBERTS SCOTT  \nXYZ Bank N.A.",
+    "attachments": [
+        {
+            "filename": "sample1.txt",
+            "content": "XYZ Bank N.A.\r\n\t\t\tLoan Agency Services\r\nDate: 01-MAR-2025\r\nTO: ABC Bank, NATIONAL ASSOCIATION\r\nATTN: SENTHAMARAI SELVI\r\nFAX: 123-456-786\r\nRe: ASDF MID-ATLANTIC LLC $171.3MM 11-4-2022, TERM LOAN A-2\r\n\r\n\t\tDescription: Facility Lender Share Adjustment\r\n\r\nBORROWER: ASDF MID-ATLANTIC LLC\r\nDEAL NAME: ASDF MID-ATLANTIC LLC $171.3MM 11-4-2022\r\n\r\nEffective 01-MAR-2025, the Lender Shares of facility TERM LOAN A-2 have been adjusted.\r\nYour share of the commitment was USD 5,518,249.19. It has been Increased to USD 5,542,963.55.\r\n\r\nFor: ABC Bank, NA\r\n\r\nReference: ASDF MID-ATLANTIC LLC $171.3MM 11-4-2022,\r\n\r\nIf you have any question, please call the undersigned.\r\n\r\n************************COMMENT******************************************************\r\nPLEASE FUND YOUR SHARE OF $24,714.36\r\n\r\n\r\nBank Name: XYZ Bank NA\r\nABA # 023456781\r\nAccount #: 0024487012\r\nAccount Name: LIQ CLO Operating Account\r\nRef: ASDF MID-ATLANTIC LLC\r\n\r\n*************************************************************************************\r\n\r\nRegards,\r\n\r\nROBERTS SCOTT\r\nTelephone #:\r\nFax #:\r\n\r\nXYZ Commercial Banking is a brand name of XYX Bank, N.A. Member FDIC\r\n\r\n\r\n\r\n\r\n\r\nMarch 01, 2025 - 09:39:15 AM"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 {
-    "from": "your_email@example.com",
+    "from_email": "your_email@example.com",
     "to": "recipient@example.com",
     "subject": "Facility Lender Share Adjustment Notification",
     "body": "Dear Recipient,\n\nPlease find attached the latest facility lender share adjustment details.\n\nBest regards,  \nROBERTS SCOTT  \nXYZ Bank N.A.",

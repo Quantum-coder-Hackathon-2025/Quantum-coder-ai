@@ -1,5 +1,5 @@
 {
-    "from": "your_email@example.com",
+    "from_email": "your_email@example.com",
     "to": "recipient@example.com",
     "subject": "Facility Lender Share Adjustment Notification",
     "body": "Dear Recipient,\n\nPlease find attached the latest facility lender share adjustment details.\n\nBest regards,  \nROBERTS SCOTT  \nXYZ Bank N.A.",
@@ -7,10 +7,6 @@
         {
             "filename": "sample2.txt",
             "content": "BANK OF AMERICA\r\n\r\nBank of America N.A\r\n\r\nTo: ABC BANK NATIONAL ASSOCIATION\r\n\r\nDate: 08-Nov-2023\r\n\r\nATTN:\tAGENT DEFAULT\r\nPhone:\t999-999-9999\r\nFax:\t800-606-7893\r\nEmail:\tFTIUY@abcbank.com\r\n\r\nRe:\t\tRANTOR FITZGERALD LP USD 425MM MAR22 / REVOLVER / RANTOR FIT00044\r\n\r\nDeal CUSIP: \t13465EAEO\r\nDeal ISIN:\tUS13465EAEO6\r\nFacility CUSIP:\t13465EAF7\r\nFacility ISIN:\tUS13465EAF79\r\nLender MEI: US1L098433\r\n\r\nEffective 10-Nov-2023, RANTOR FITZGERALD LP has elected to repay under the SOFR (US) Term option, a total of USD 20,000,000.00.\r\n\r\nPrevious Global principal balance: USD 45,000,000.00\r\nNew Global principal balance: USD 25,000,000.00\r\n\r\nThis load was effective 20-Jul-2023 and is scheduled to reprice on 20-Nov-2023.\r\n\r\nYour share of the USD 20,000,000.00 SOFR (US) Term option payment is USD 1,411,764.71.\r\nPrevious Lender Share Principal Balance: USD 3,176,470.59\r\nNew Lender Share Principal Balance: USD 1,764,705.88\r\n\r\nWe will remit USD 1,411,764.71 on the effective date. Please note that (i) if the Borrower has not in fact made such payment; or (ii) any payment you receive is in excess of what\r\nwas paid by the Borrower or (iii) we notify you that the payment was erroneously made, then pursuant to the provisions of the credit facility, you agree to return such payment.\r\n\r\nFor: ABC BANK NATIONAL ASSOCIATION\r\nTO: ABC BANK, NA\r\nABA Number: 451000876\r\nAccount No: XXXXXXXXX890\r\nReference : RANTOR FITZGERALD LP USD 425MM MAR22 , SOFR (US) Term Principal Payment (RANTOR FIT00044)\r\n\r\nThanks & Regards,\r\n\r\nKUDORA CRESNETTE\r\nTelephone #: +19398561200\r\nEmail id : kudora.cresnette@bofa.com"
-        },
-        {
-            "filename": "sample3.txt",
-            "content": "XYZ Bank N.A.  \r\nLoan Agency Services  \r\nDate: 15-MAR-2025  \r\nTO: ABC BANK, NATIONAL ASSOCIATION  \r\nATTN: SENTHAMARAI SELVI  \r\nFAX: 123-456-786  \r\nRe: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024, TERM LOAN B  \r\n\r\nDescription: Interest Rate Adjustment Request  \r\n\r\nBORROWER: GLOBAL INDUSTRIAL CORP  \r\nDEAL NAME: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024  \r\n\r\nEffective 15-MAR-2025, the Borrower has requested an adjustment to the interest rate applied to facility TERM LOAN B. The rate will be adjusted as follows:  \r\n- Previous Rate: SOFR (US) + 2.5%  \r\n- New Rate: SOFR (US) + 2.2%  \r\n\r\nThe adjustment will be reflected starting from the next billing cycle.  \r\n\r\nFor: ABC Bank, NA  \r\n\r\nReference: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024, Interest Rate Adjustment  \r\n\r\nIf you have any questions, please call the undersigned.  \r\n\r\nCOMMENT  \r\nTHIS IS A NOTICE OF CHANGE IN INTEREST TERMS EFFECTIVE FROM 15-MAR-2025.  \r\n\r\nBank Name: XYZ Bank NA  \r\nABA #: 654321987  \r\nAccount #: 0098765432  \r\nAccount Name: GLOBAL INDUSTRIAL ESCROW ACCOUNT  \r\nRef: GLOBAL INDUSTRIAL CORP  \r\n\r\n*  \r\n\r\nRegards,  \r\n\r\nROBERTS SCOTT  \r\nTelephone #: +1 (987) 654-3"
         }
     ]
 }

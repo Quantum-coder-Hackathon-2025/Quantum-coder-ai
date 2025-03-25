@@ -4,7 +4,8 @@ import pdfplumber
 import docx
 import spacy
 import numpy as np
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from pydantic import BaseModel
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
@@ -14,7 +15,10 @@ import pytesseract
 from sklearn.metrics.pairwise import cosine_similarity
 import re
 from dateutil import parser
+from dotenv import load_dotenv
 
+# Load .env file
+load_dotenv()
 
 # from transformers import pipeline
 
@@ -66,6 +70,17 @@ def load_Training():
 # Initialize FastAPI App
 app = FastAPI()
 
+class Attachment(BaseModel):
+    filename: str
+    content: str
+
+class EmailRequest(BaseModel):
+    from_email: str
+    to: str
+    subject: str
+    body: str
+    attachments: list[Attachment]
+
 # Extract text from attachments
 def extract_text_from_attachment(file_path):
     text = ""
@@ -83,7 +98,7 @@ def extract_text_from_attachment(file_path):
         # Perform OCR on image files
         image = Image.open(file_path)
         # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-        pytesseract.pytesseract.tesseract_cmd = r"/usr/local/Cellar/tesseract/5.5.0_1/bin/tesseract"
+        pytesseract.pytesseract.tesseract_cmd = os.getenv("TESSER_ACT")
         text = pytesseract.image_to_string(image)
     return text
 
@@ -209,21 +224,9 @@ def classify_text(text):
 
 
 # FastAPI endpoint to process emails and multiple attachments
-@app.post("/process_email")
+@app.post("/process_email/attachemnts")
 async def process_email(email_text: str = Form(...), attachments: list[UploadFile] = File(None)):
-    results = []
-    
-    # Process Email Content
-    # email_classification = classify_text(email_text)
-    # email_summary = generate_summary(email_text)
-    # email_extracted_details = extract_details(email_text)
-    # results.append({
-    #     "Source": "Email Body",
-    #     "Classification": email_classification,
-    #     "Extracted_Details": email_extracted_details,
-    #     "Summary": email_summary
-    # })
-
+    results = []    
     # Process Attachments
     if attachments:
         for attachment in attachments:
@@ -247,8 +250,45 @@ async def process_email(email_text: str = Form(...), attachments: list[UploadFil
                     "Source": attachment.filename,
                     "Classification": attachment_classification,
                     "Extracted_Details": extract_details(text_content),
-                    "Summary": generate_summary(text_content)
+                    "Summary": clean_text(generate_summary(text_content))
                 })
 
     # If no classifications exist, return an empty response
     return {"Results": results} if results else {"Results": []}
+
+@app.post("/process_email/generatedInput")
+async def process_email(email_request: EmailRequest):
+    results = []    
+    email_text = email_request.body
+    # Process Attachments
+    if email_request.attachments:
+        for attachment in email_request.attachments:
+            # file_path = f"temp_{attachment.filename}"
+            # with open(file_path, "wb") as buffer:
+            #     buffer.write(await attachment.read())
+
+            text_content = email_text + "\n" + attachment.content
+            # os.remove(file_path)  # Delete after processing
+            
+            if not text_content.strip():
+                results.append({
+                    "Source": attachment.filename,
+                    "Message": "Not valid content"
+                })
+                continue
+            
+            attachment_classification = classify_text(text_content)
+            if attachment_classification:  # Only add if classification exists
+                results.append({
+                    "Source": attachment.filename,
+                    "Classification": attachment_classification,
+                    "Extracted_Details": extract_details(text_content),
+                    "Summary": clean_text(generate_summary(text_content))
+                })
+
+    # If no classifications exist, return an empty response
+    return {"Results": results} if results else {"Results": []}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8002, reload=True)

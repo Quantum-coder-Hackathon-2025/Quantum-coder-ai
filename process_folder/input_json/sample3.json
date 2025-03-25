@@ -1,0 +1,12 @@
+{
+    "from_email": "your_email@example.com",
+    "to": "recipient@example.com",
+    "subject": "Facility Lender Share Adjustment Notification",
+    "body": "Dear Recipient,\n\nPlease find attached the latest facility lender share adjustment details.\n\nBest regards,  \nROBERTS SCOTT  \nXYZ Bank N.A.",
+    "attachments": [
+        {
+            "filename": "sample3.txt",
+            "content": "XYZ Bank N.A.  \r\nLoan Agency Services  \r\nDate: 15-MAR-2025  \r\nTO: ABC BANK, NATIONAL ASSOCIATION  \r\nATTN: SENTHAMARAI SELVI  \r\nFAX: 123-456-786  \r\nRe: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024, TERM LOAN B  \r\n\r\nDescription: Interest Rate Adjustment Request  \r\n\r\nBORROWER: GLOBAL INDUSTRIAL CORP  \r\nDEAL NAME: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024  \r\n\r\nEffective 15-MAR-2025, the Borrower has requested an adjustment to the interest rate applied to facility TERM LOAN B. The rate will be adjusted as follows:  \r\n- Previous Rate: SOFR (US) + 2.5%  \r\n- New Rate: SOFR (US) + 2.2%  \r\n\r\nThe adjustment will be reflected starting from the next billing cycle.  \r\n\r\nFor: ABC Bank, NA  \r\n\r\nReference: GLOBAL INDUSTRIAL CORP USD 250MM 09-15-2024, Interest Rate Adjustment  \r\n\r\nIf you have any questions, please call the undersigned.  \r\n\r\nCOMMENT  \r\nTHIS IS A NOTICE OF CHANGE IN INTEREST TERMS EFFECTIVE FROM 15-MAR-2025.  \r\n\r\nBank Name: XYZ Bank NA  \r\nABA #: 654321987  \r\nAccount #: 0098765432  \r\nAccount Name: GLOBAL INDUSTRIAL ESCROW ACCOUNT  \r\nRef: GLOBAL INDUSTRIAL CORP  \r\n\r\n*  \r\n\r\nRegards,  \r\n\r\nROBERTS SCOTT  \r\nTelephone #: +1 (987) 654-3"
+        }
+    ]
+}

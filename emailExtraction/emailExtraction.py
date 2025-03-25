@@ -1,13 +1,31 @@
 import json
-import email
-import pytesseract
-from PIL import Image
+import os
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.responses import JSONResponse
 from email import policy
 from email.parser import BytesParser
 from io import BytesIO
 from PyPDF2 import PdfReader
 from docx import Document
+from PIL import Image
+import pytesseract
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
+
+# Get paths from .env file
+INPUT_FOLDER = os.getenv("EML_INPUT", "input_emails")
+OUTPUT_FOLDER = os.getenv("INPUT_JSON", "output_json")
+
+# Ensure folders exist
+os.makedirs(INPUT_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+# Initialize FastAPI
+app = FastAPI()
+
+# Helper functions for text extraction
 def extract_text_from_pdf(pdf_bytes):
     """Extract text from a PDF file."""
     text = ""
@@ -36,7 +54,7 @@ def read_eml_file(eml_path):
         msg = BytesParser(policy=policy.default).parse(f)
 
     email_data = {
-        "from": msg["From"],
+        "from_email": msg["From"],
         "to": msg["To"],
         "subject": msg["Subject"],
         "body": "",
@@ -73,13 +91,103 @@ def read_eml_file(eml_path):
 
     return email_data
 
-# Example Usage
-eml_file_path = "/Users/karthikeyansethuraman/SourceControl/learning/hackathon-2025/Quantum-coder-ai/python-AI/output/sample2.eml"  # Update with the correct file path
-email_json = read_eml_file(eml_file_path)
+def process_eml_file(eml_bytes):
+    """Read an EML file and extract content + attachments."""
+    msg = BytesParser(policy=policy.default).parse(BytesIO(eml_bytes))
 
-# Save JSON output
-json_output_path = "/Users/karthikeyansethuraman/SourceControl/learning/hackathon-2025/Quantum-coder-ai/emailExtraction/output/email_output.json"
-with open(json_output_path, "w", encoding="utf-8") as json_file:
-    json.dump(email_json, json_file, indent=4)
+    email_data = {
+        "from_email": msg["From"],
+        "to": msg["To"],
+        "subject": msg["Subject"],
+        "body": "",
+        "attachments": []
+    }
 
-print(f"Extracted email data saved to {json_output_path}")
+    # Extract email body
+    if msg.is_multipart():
+        for part in msg.iter_parts():
+            if part.get_content_type() == "text/plain" and not part.get_filename():
+                email_data["body"] = part.get_content().strip()
+    else:
+        email_data["body"] = msg.get_content().strip()
+
+    # Extract all attachments
+    for part in msg.iter_attachments():
+        attachment_filename = part.get_filename()
+        file_bytes = part.get_payload(decode=True)
+
+        extracted_text = None
+        if attachment_filename.endswith(".pdf"):
+            extracted_text = extract_text_from_pdf(file_bytes)
+        elif attachment_filename.endswith(".docx"):
+            extracted_text = extract_text_from_docx(file_bytes)
+        elif attachment_filename.endswith(".txt"):
+            extracted_text = extract_text_from_txt(file_bytes)
+        elif attachment_filename.endswith((".jpg", ".jpeg", ".png")):
+            extracted_text = extract_text_from_image(file_bytes)
+
+        email_data["attachments"].append({
+            "filename": attachment_filename,
+            "content": extracted_text if extracted_text else "Binary file (not extracted)"
+        })
+
+    return email_data
+
+# API Endpoint to reset system and upload EML file
+@app.post("/emailToJson")
+async def reset_system(file: UploadFile = File(...)):
+    """
+    Upload an .eml file, extract its contents, and generate output JSON.
+    """
+    try:
+        # Read the uploaded .eml file
+        eml_bytes = await file.read()
+        email_json = process_eml_file(eml_bytes)
+
+        # Generate output JSON filename
+        base_filename = os.path.splitext(file.filename)[0]  # Extracts filename without extension
+        output_dir = os.getenv("OUTPUT_JSON", "./output")  # Default directory if not in .env
+        os.makedirs(output_dir, exist_ok=True)  # Ensure output directory exists
+        json_output_path = os.path.join(output_dir, f"{base_filename}.json")
+
+        # Save JSON output
+        with open(json_output_path, "w", encoding="utf-8") as json_file:
+            json.dump(email_json, json_file, indent=4)
+
+        return JSONResponse(content={"message": "File processed successfully", "output_file": json_output_path, "data": email_json})
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# API Endpoint to reset system and upload EML file
+@app.post("/bulk/emailToJson")
+async def reset_system():
+    """Process all EML files in the input folder and convert to JSON."""
+    processed_files = []
+    for filename in os.listdir(INPUT_FOLDER):
+        if filename.endswith(".eml"):
+            eml_path = os.path.join(INPUT_FOLDER, filename)
+            json_filename = filename.replace(".eml", ".json")
+            json_output_path = os.path.join(OUTPUT_FOLDER, json_filename)
+            print(json_output_path)
+            try:
+                email_json = read_eml_file(eml_path)
+                # Save JSON output
+                with open(json_output_path, "w", encoding="utf-8") as json_file:
+                    json.dump(email_json, json_file, indent=4)
+
+                # Delete the processed file
+                os.remove(eml_path)
+                processed_files.append(json_filename)
+            except Exception as e:
+                return {"error": f"Failed to process {filename}: {str(e)}"}
+
+    return {"message": "Processing complete", "processed_files": processed_files}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
+
+# Run the FastAPI app with:
+# uvicorn filename:app --host 0.0.0.0 --port 8000 --reload
