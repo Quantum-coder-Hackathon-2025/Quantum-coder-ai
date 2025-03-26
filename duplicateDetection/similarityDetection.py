@@ -67,6 +67,11 @@ def extract_text_from_txt(txt_path):
     return text
 
 
+@app.get("/clearDict")
+async def clearnDictioanry():
+    embedding_storage.clear()
+    return {"message": "Dictionary cleared"}
+
 
 @app.post("/duplicateCheck")
 async def process_email(email_request: EmailRequest, threshold: float = 0.9):
